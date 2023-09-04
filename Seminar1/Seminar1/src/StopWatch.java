@@ -11,7 +11,6 @@ public class StopWatch implements Runnable{
 
     @Override
     public void run() {
-        System.out.println("Stopwatch thread. Stopwatch starts now!");
         double elapsedTime = 0; //start time
         while (true){
             try {
@@ -21,13 +20,35 @@ public class StopWatch implements Runnable{
             }
             elapsedTime = elapsedTime + 0.01; // add a millisecond for every iteration
             String formattedString = String.format("%.2f", elapsedTime); // shows the result with only two digits
+            System.out.println(formattedString);
+
+            if(elapsedTime >= 4.99){
+                break;
+            }
+
+        }
+    }
+
+    /*@Override
+    public void run() {
+        System.out.println("Stopwatch thread. Stopwatch starts now!");
+        long startTime = System.currentTimeMillis();
+        while (true){
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            long currentTime = System.currentTimeMillis();
+            double elapsedTime = (currentTime - startTime) / 1000.0;
+            String formattedString = String.format("%.2f", elapsedTime); // shows the result with only two digits
             System.out.println("Stopwatch thread. Elapsed: " + formattedString);
 
-            if(elapsedTime >= 2.99){
+            if(elapsedTime >= 5){
                 break;
             }
         }
-    }
+    }*/
 }
 
 /* How did you implement the task?
