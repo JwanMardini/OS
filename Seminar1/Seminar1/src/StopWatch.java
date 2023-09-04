@@ -2,13 +2,16 @@ public class StopWatch implements Runnable{
     public static void main(String[] args) throws InterruptedException {
         StopWatch stopWatch = new StopWatch();
         Thread thread = new Thread(stopWatch);
+        System.out.println("Main thread. Waiting for stopwatch thread...");
         thread.start();
         thread.join();
+        System.out.println("Main thread. Finished stopwatch thread");
 
     }
 
     @Override
     public void run() {
+        System.out.println("Stopwatch thread. Stopwatch starts now!");
         double elapsedTime = 0; //start time
         while (true){
             try {
@@ -18,12 +21,11 @@ public class StopWatch implements Runnable{
             }
             elapsedTime = elapsedTime + 0.01; // add a millisecond for every iteration
             String formattedString = String.format("%.2f", elapsedTime); // shows the result with only two digits
-            System.out.println(formattedString);
+            System.out.println("Stopwatch thread. Elapsed: " + formattedString);
 
-            if(elapsedTime > 9.99){
+            if(elapsedTime >= 2.99){
                 break;
             }
-
         }
     }
 }
