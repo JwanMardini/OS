@@ -117,7 +117,7 @@ class BoundedBuffer {
     public synchronized int consume() throws InterruptedException {
         while (buffer.isEmpty()) {
             // Buffer is empty, wait for a producer to add an item
-            wait();
+            wait( );
         }
 
         int item = buffer.poll();
