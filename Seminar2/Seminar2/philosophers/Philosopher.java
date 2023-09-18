@@ -22,7 +22,7 @@ public class Philosopher implements Runnable{
                                        
                 myTable.getLeftChopstick(myId);
                 System.out.println("Philosopher " + myId + " pick up left");
-                Thread.sleep((int)(Math.random()*10));
+                Thread.sleep((int)(Math.random()*100));
             
                 myTable.getRightChopstick(myId);
                 System.out.println("Philosopher " + myId + " pick up right");

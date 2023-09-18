@@ -13,25 +13,43 @@ public class Table {
 		}
 	}
 
-	public void getLeftChopstick(int n) {
+
+	public synchronized void getLeftChopstick(int n) {
+		while (!chopstick[n]){
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+		}
 		chopstick[n] = false;
 	}
 
-	public void getRightChopstick(int n) {
+	public synchronized void getRightChopstick(int n) {
 		int pos = n + 1;
 		if (pos == nbrOfChopsticks)
 			pos = 0;
+
+		while (!chopstick[pos]){
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+		}
 		chopstick[pos] = false;
 	}
 
-	public void releaseLeftChopstick(int n) {
+	public synchronized void releaseLeftChopstick(int n) {
 		chopstick[n] = true;
+		notifyAll();
 	}
 
-	public void releaseRightChopstick(int n) {
+	public synchronized void releaseRightChopstick(int n) {
 		int pos = n + 1;
 		if (pos == nbrOfChopsticks)
 			pos = 0;
 		chopstick[pos] = true;
+		notifyAll();
 	}
 }

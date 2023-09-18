@@ -1,4 +1,4 @@
-package readerwriter;
+/*package readerwriter;
 
 
 public class RWLock {
@@ -9,21 +9,22 @@ public class RWLock {
 
 
     public synchronized void acquireRead(){
-        numOfReaders++;
-        if(writerIsActive || numOfWritersWaiting != 0 ){
+
+        while(writerIsActive || numOfWritersWaiting != 0 ){
             try {
                 wait();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
+        numOfReaders++;
 
     }
 
     public synchronized void acquireWrite(){
-        if (numOfReaders != 0 || writerIsActive){
+        numOfWritersWaiting++;
+        while (numOfReaders != 0 || writerIsActive){
             try {
-                numOfWritersWaiting++;
                 wait();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -35,17 +36,17 @@ public class RWLock {
     }
     public synchronized void releaseRead(){
         numOfReaders--;
-        notify();
+        notifyAll();
     }
 
     public synchronized void releaseWrite(){
         writerIsActive = false;
-        notify();
+        notifyAll();
 
     }
-}
+}*/
 
-/*package readerwriter;
+package readerwriter;
 
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class RWLock {
@@ -76,5 +77,5 @@ public class RWLock {
 
     }
 
-}*/
+}
 
