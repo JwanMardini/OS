@@ -1,6 +1,8 @@
 package philosophers;
 
-public class Table {
+
+// Task 3 First Part
+/*public class Table {
 
 	private int nbrOfChopsticks;
 	private boolean chopstick[]; // true if chopstick[i] is available
@@ -52,4 +54,38 @@ public class Table {
 		chopstick[pos] = true;
 		notifyAll();
 	}
+}*/
+
+// Task 3 Second Part
+public class Table {
+
+    private int nbrOfChopsticks;
+    private boolean chopstick[]; // true if chopstick[i] is available
+
+    public Table(int nbrOfSticks) {
+        nbrOfChopsticks = nbrOfSticks;
+        chopstick = new boolean[nbrOfChopsticks];
+        for (int i = 0; i < nbrOfChopsticks; i++) {
+            chopstick[i] = true;
+        }
+    }
+
+
+    public synchronized void getChopsticks(int n) {
+        while (!chopstick[n] && chopstick[(n + 1) % 5]) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        chopstick[n] = false;
+        chopstick[(n + 1) % 5] = false;
+    }
+
+    public synchronized void releaseChopsticks(int n) {
+        chopstick[n] = true;
+        chopstick[(n + 1) % 5] = true;
+        notifyAll();
+    }
 }
