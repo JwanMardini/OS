@@ -1,49 +1,8 @@
 package philosophers;
 
-import java.util.concurrent.Semaphore;
 
-public class Table {
-
-	private int nbrOfChopsticks;
-	private Semaphore[] chopstick;
-
-	public Table(int nbrOfSticks) {
-		nbrOfChopsticks = nbrOfSticks;
-		chopstick = new Semaphore[nbrOfChopsticks];
-		for (int i = 0; i < nbrOfChopsticks; i++) {
-			chopstick[i] = new Semaphore(1); // Initialize each chopstick semaphore with a limit of 1
-		}
-	}
-
-	public void getChopsticks(int n) throws InterruptedException {
-		int leftChopstick = n;
-		int rightChopstick = (n + 1) % nbrOfChopsticks;
-
-		// Ensure that philosophers always try to acquire chopsticks in a consistent order
-		if (leftChopstick > rightChopstick) {
-			int temp = leftChopstick;
-			leftChopstick = rightChopstick;
-			rightChopstick = temp;
-		}
-
-		chopstick[leftChopstick].acquire(); // Acquire the left chopstick
-		chopstick[rightChopstick].acquire(); // Acquire the right chopstick
-	}
-
-	public void releaseChopsticks(int n) {
-		int leftChopstick = n;
-		int rightChopstick = (n + 1) % nbrOfChopsticks;
-
-		chopstick[leftChopstick].release(); // Release the left chopstick
-		chopstick[rightChopstick].release(); // Release the right chopstick
-	}
-}
-
-
-
-/*package philosophers;
-
-public class Table {
+// Task 3 First Part
+/*public class Table {
 
 	private int nbrOfChopsticks;
 	private boolean chopstick[]; // true if chopstick[i] is available
@@ -96,3 +55,37 @@ public class Table {
 		notifyAll();
 	}
 }*/
+
+// Task 3 Second Part
+public class Table {
+
+    private int nbrOfChopsticks;
+    private boolean chopstick[]; // true if chopstick[i] is available
+
+    public Table(int nbrOfSticks) {
+        nbrOfChopsticks = nbrOfSticks;
+        chopstick = new boolean[nbrOfChopsticks];
+        for (int i = 0; i < nbrOfChopsticks; i++) {
+            chopstick[i] = true;
+        }
+    }
+
+
+    public synchronized void getChopsticks(int n) {
+        while (!chopstick[n] && chopstick[(n + 1) % 5]) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        chopstick[n] = false;
+        chopstick[(n + 1) % 5] = false;
+    }
+
+    public synchronized void releaseChopsticks(int n) {
+        chopstick[n] = true;
+        chopstick[(n + 1) % 5] = true;
+        notifyAll();
+    }
+}
