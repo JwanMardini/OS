@@ -65,17 +65,17 @@ public class Philosopher implements Runnable{
             try {
 
                 System.out.println("Philosopher " + myId + " thinks. Iteration "+ i);
-                Thread.sleep((int)(Math.random()*100));
+                Thread.sleep((int)(Math.random()*1));
 
                 myTable.getChopsticks(myId);
                 System.out.println("Philosopher " + myId + " pick up left");
-                Thread.sleep((int)(Math.random()*100));
+                Thread.sleep((int)(Math.random()*1));
 
                 //myTable.getRightChopstick(myId);
                 System.out.println("Philosopher " + myId + " pick up right");
 
                 System.out.println("Philosopher " + myId + " eats. Iteration "+ i);
-                Thread.sleep((int)(Math.random()*100));
+                Thread.sleep((int)(Math.random()*1));
 
                 myTable.releaseChopsticks(myId);
                 System.out.println("Philosopher " + myId + " drop left");
