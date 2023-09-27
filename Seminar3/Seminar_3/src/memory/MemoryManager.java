@@ -3,6 +3,8 @@ package memory;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class MemoryManager {
 
@@ -62,13 +64,13 @@ public class MemoryManager {
 	}
 
 	private int getPageNumber(int logicalAddress) {
-		// Implement by student in task one
-		return 0;
+		int pageNum = logicalAddress >> 8;
+		return pageNum;
 	}
 
 	private int getPageOffset(int logicalAddress) {
-		// Implement by student in task one
-		return 0;
+		int pageOffset = logicalAddress & 0b11111111;
+		return pageOffset;
 	}
 
 	private void pageFault(int pageNumber) {
@@ -104,10 +106,13 @@ public class MemoryManager {
 		// This is the simple case where we assume same size of physical and logical
 		// memory
 		// nextFreeFramePosition is used to point to next free frame position
-
+		myPageTable[pageNumber] = myNextFreeFramePosition;
+		myNextFreeFramePosition++;
+		myNumberOfpageFaults++;
 	}
 
-	private void handlePageFaultFIFO(int pageNumber) {
+	private void handlePageFaultFIFO(int pageNumber) { // page number is in page table
+		Queue<Integer> myQue = new LinkedList<Integer>();
 		// Implement by student in task two
 		// this solution allows different size of physical and logical memory
 		// page replacement using FIFO
