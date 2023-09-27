@@ -1,5 +1,5 @@
 //Task 1 and Task 2 First Part
-/*package readerwriter;
+package readerwriter;
 
 
 public class RWLock {
@@ -45,10 +45,10 @@ public class RWLock {
         notifyAll();
 
     }
-}*/
+}
 
 
-//Task 2 Second Part
+/*//Task 2 Second Part
 package readerwriter;
 
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -80,5 +80,5 @@ public class RWLock {
 
     }
 
-}
+}*/
 
