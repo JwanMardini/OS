@@ -64,12 +64,14 @@ public class MemoryManager {
 	}
 
 	private int getPageNumber(int logicalAddress) {
-		int pageNum = logicalAddress >> 8;
+		//int pageNum = logicalAddress >> 8;
+		int pageNum = logicalAddress / myPageSize;
 		return pageNum;
 	}
 
 	private int getPageOffset(int logicalAddress) {
-		int pageOffset = logicalAddress & 0b11111111;
+		//int pageOffset = logicalAddress & 0b11111111;
+		int pageOffset = logicalAddress % myPageSize;
 		return pageOffset;
 	}
 
