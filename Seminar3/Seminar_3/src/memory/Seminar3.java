@@ -20,9 +20,9 @@ public class Seminar3 {
 	public static void main(String[] args) {
 		// When running the code for the first time, you will get index out of bounds
 		// This is due to that getPageNumber(), getPageOffset() and handlePageFault() is not implemented in MemoryManager.class
-		testTaskOne();
+		//testTaskOne();
 		//testTaskTwo(); // Uncomment to run tc
-		//testTaskThree();	// Uncomment to run tc
+		testTaskThree();	// Uncomment to run tc
 	}
 	
 	private static void testTaskOne()

@@ -18,8 +18,15 @@ public class MemoryManager {
 	private int myNumberOfpageFaults = 0;
 	private int myPageReplacementAlgorithm = 0;
 
+	private Queue<Integer> fifoQue;
+
+	private LinkedList<Integer> lruQueue;
+
 	public MemoryManager(int numberOfPages, int pageSize, int numberOfFrames, String pageFile,
 			int pageReplacementAlgorithm) {
+
+		fifoQue = new LinkedList<>();
+		lruQueue = new LinkedList<>();
 
 		myNumberOfPages = numberOfPages;
 		myPageSize = pageSize;
@@ -114,19 +121,23 @@ public class MemoryManager {
 	}
 
 	private void handlePageFaultFIFO(int pageNumber) { // page number is in page table
-		Queue<Integer> myQue = new LinkedList<Integer>();
-		// Implement by student in task two
-		// this solution allows different size of physical and logical memory
-		// page replacement using FIFO
-		// Note depending on your solution, you might need to change parts of the
-		// supplied code, this is allowed.
+		if (fifoQue.size() < myNumberOfFrames) {
+			// There are free frames, so assign the next free frame to the page
+			fifoQue.add(pageNumber);
+			myPageTable[pageNumber] = myNextFreeFramePosition;
+			myNextFreeFramePosition++;
+			myNumberOfpageFaults++;
+		} else {
+			// All frames are occupied, so we need to replace a page using FIFO
+			int victimPage = fifoQue.poll(); // Dequeue the oldest page
+			fifoQue.add(pageNumber); // Enqueue the new page (since it's now the most recent)
+			myPageTable[pageNumber] = myPageTable[victimPage]; // Assign the new page to the victim's frame
+			myPageTable[victimPage] = -1; // Remove the victim page from memory
+			myNumberOfpageFaults++;
+		}
 	}
 
 	private void handlePageFaultLRU(int pageNumber) {
-		// Implement by student in task three
-		// this solution allows different size of physical and logical memory
-		// page replacement using LRU
-		// Note depending on your solution, you might need to change parts of the
-		// supplied code, this is allowed.
+
 	}
 }
