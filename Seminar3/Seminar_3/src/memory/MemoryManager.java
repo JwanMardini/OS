@@ -65,6 +65,10 @@ public class MemoryManager {
 		//System.out.print("Virtual address: " + logicalAddress);
 		//System.out.print(" Physical address: " + physicalAddress);
 		//System.out.println(" Value: " + data);
+		lruQueue.remove((Integer) pageNumber); // Remove the page from the queue
+		lruQueue.addFirst(pageNumber); // Add it back as the most recently used
+
+
 		return data;
 	}
 

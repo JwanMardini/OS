@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="591c0717-6bf9-4953-8703-ec3a6f3271c4" name="Changes" comment="">
+    <list default="true" id="591c0717-6bf9-4953-8703-ec3a6f3271c4" name="Changes" comment="on">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Seminar_3/memory/MemoryManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Seminar_3/memory/MemoryManager.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/memory/MemoryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/memory/MemoryManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/memory/Seminar3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/memory/Seminar3.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,11 +55,25 @@
       <workItem from="1695811598240" duration="2728000" />
       <workItem from="1695818115696" duration="2551000" />
       <workItem from="1695834117802" duration="12071000" />
-      <workItem from="1695927890111" duration="6015000" />
+      <workItem from="1695927890111" duration="6402000" />
+      <workItem from="1695934877832" duration="792000" />
     </task>
+    <task id="LOCAL-00001" summary="on">
+      <option name="closed" value="true" />
+      <created>1695934542561</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1695934542561</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="on" />
+    <option name="LAST_COMMIT_MESSAGE" value="on" />
   </component>
 </project>
