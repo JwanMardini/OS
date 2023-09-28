@@ -18,15 +18,13 @@ public class MemoryManager {
 	private int myNumberOfpageFaults = 0;
 	private int myPageReplacementAlgorithm = 0;
 
-	private Queue<Integer> fifoQue;
+	private Queue<Integer> fifoQue = new LinkedList<>();
 
-	private LinkedList<Integer> lruQueue;
+	private LinkedList<Integer> lruQueue = new LinkedList<>();
 
 	public MemoryManager(int numberOfPages, int pageSize, int numberOfFrames, String pageFile,
 			int pageReplacementAlgorithm) {
 
-		fifoQue = new LinkedList<>();
-		lruQueue = new LinkedList<>();
 
 		myNumberOfPages = numberOfPages;
 		myPageSize = pageSize;
@@ -64,20 +62,20 @@ public class MemoryManager {
 		int physicalAddress = frame * myPageSize + offset;
 		byte data = myRAM[physicalAddress];
 
-		System.out.print("Virtual address: " + logicalAddress);
-		System.out.print(" Physical address: " + physicalAddress);
-		System.out.println(" Value: " + data);
+		//System.out.print("Virtual address: " + logicalAddress);
+		//System.out.print(" Physical address: " + physicalAddress);
+		//System.out.println(" Value: " + data);
 		return data;
 	}
 
 	private int getPageNumber(int logicalAddress) {
-		//int pageNum = logicalAddress >> 8;
+		// int pageNum = logicalAddress >> 8;
 		int pageNum = logicalAddress / myPageSize;
 		return pageNum;
 	}
 
 	private int getPageOffset(int logicalAddress) {
-		//int pageOffset = logicalAddress & 0b11111111;
+		//int pageOffset = logicalAddress & 0xFF;
 		int pageOffset = logicalAddress % myPageSize;
 		return pageOffset;
 	}
@@ -137,7 +135,23 @@ public class MemoryManager {
 		}
 	}
 
+
 	private void handlePageFaultLRU(int pageNumber) {
+		if (lruQueue.size() < myNumberOfFrames) {
+			// There are free frames, so assign the next free frame to the page
+			lruQueue.add(pageNumber);
+			myPageTable[pageNumber] = myNextFreeFramePosition;
+			myNextFreeFramePosition++;
+			myNumberOfpageFaults++;
+		} else {
+			// All frames are occupied, so we need to replace a page using LRU
+			int leastRecentlyUsedPage = lruQueue.removeLast(); // Remove the least recently used page
+			lruQueue.addFirst(pageNumber); // Add it back as the most recently used
+			myPageTable[pageNumber] = myPageTable[leastRecentlyUsedPage]; // Assign the new page to the freed frame
+			myPageTable[leastRecentlyUsedPage] = -1; // Remove the least recently used page from memory
+			myNumberOfpageFaults++;
+		}
 
 	}
+
 }
