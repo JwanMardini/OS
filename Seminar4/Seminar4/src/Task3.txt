@@ -1,0 +1,2 @@
+I have decided to add "createfile" command. You run the command followed by a file name,
+ then it checks if the file is already exists if not it will create the file and gives a conformation.

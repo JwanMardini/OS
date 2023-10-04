@@ -27,6 +27,13 @@ public class Runner implements Runnable{
             System.out.println("Copy file: " + srcFile + " to " + desFile);
             copyFile(srcFile, desFile);
 
+        } else if (command.toLowerCase().startsWith("createfile")){
+            String[] input = command.split( " ");
+            String file = input[1];
+            createFile(file);
+
+
+
         } else {
             List<String> input = Arrays.asList(command.split(" "));
             ProcessBuilder processBuilder = new ProcessBuilder(input);
@@ -105,7 +112,20 @@ public class Runner implements Runnable{
 
     }
 
+    private void createFile (String file){
+        String path = System.getProperty("user.dir");
+        File newFile = new File(path + "/" + file);
+        try{
+            if (newFile.exists()){
+                System.out.println("File already exists");
+            }else {
+                newFile.createNewFile();
+                System.out.println("File created successfully.");
+            }
+        }catch (IOException e){
+            System.out.println("Something went wrong, try again");
+        }
 
-
+    }
 
 }
