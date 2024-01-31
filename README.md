@@ -1,2 +1,2 @@
 # OS
-OS Course
+Operating System course
